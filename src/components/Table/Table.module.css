@@ -1,0 +1,23 @@
+.container,
+td {
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #94a4bb;
+  border-spacing: 5px;
+  border-bottom: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.title {
+  font-family: var(--primary-font);
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ddd;
+}
+
+.column {
+  padding: 15px;
+  width: 50px;
+}

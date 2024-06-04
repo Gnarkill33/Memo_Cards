@@ -1,0 +1,9 @@
+.cell {
+  text-align: center;
+  width: 20%;
+  font-family: var(--primary-font);
+}
+
+.inputField {
+  width: 80%;
+}
