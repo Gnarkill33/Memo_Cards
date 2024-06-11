@@ -5,7 +5,6 @@ const data = [
     transcription: "[kæt]",
     translation: "кошка",
     theme: "животные",
-    isActive: true,
   },
   {
     id: "2",
@@ -13,7 +12,6 @@ const data = [
     transcription: "[haʊs]",
     translation: "дом",
     theme: "жилье",
-    isActive: false,
   },
   {
     id: "3",
@@ -21,7 +19,6 @@ const data = [
     transcription: "[dɔg]",
     translation: "собака",
     theme: "животные",
-    isActive: false,
   },
 ];
 

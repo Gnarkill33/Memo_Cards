@@ -1,0 +1,14 @@
+.button {
+  height: 2rem;
+  width: 2rem;
+  border: none;
+  margin: 0px 5px;
+  border-radius: 5px;
+}
+
+.buttonCancel {
+  background-image: url("../../assets/images/cancel.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
