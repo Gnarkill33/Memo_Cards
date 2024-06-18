@@ -1,0 +1,11 @@
+.container {
+  width: 27rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.counter {
+  font-family: var(--primary-font);
+  color: var(--background);
+  font-weight: 600;
+}
