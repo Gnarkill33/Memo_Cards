@@ -1,4 +1,13 @@
 .container {
+  height: 55.7vh;
+  width: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 6rem auto;
+}
+
+.wrapper {
   width: 27rem;
   display: flex;
   justify-content: space-between;

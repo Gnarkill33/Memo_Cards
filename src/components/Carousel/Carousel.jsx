@@ -26,8 +26,8 @@ const Carousel = (data) => {
   };
 
   return (
-    <>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
         <IoArrowBackCircleSharp onClick={handleBackward} size='50px' />
         <Card
           word={data[position].word}
@@ -39,7 +39,7 @@ const Carousel = (data) => {
       <p className={styles.counter}>
         {position + 1} / {data.length}
       </p>
-    </>
+    </div>
   );
 };
 
