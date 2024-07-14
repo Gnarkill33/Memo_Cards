@@ -1,5 +1,5 @@
 import styles from "./Card.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Card = ({ word, transcription, translation }) => {
   const [isTranslated, setIsTranslated] = useState(false);
@@ -12,6 +12,14 @@ const Card = ({ word, transcription, translation }) => {
     setIsTranslated(false);
   }, [word]);
 
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    if (!isTranslated && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [isTranslated]);
+
   return (
     <div className={styles.container}>
       <p className={styles.englishField}>{word}</p>
@@ -19,7 +27,11 @@ const Card = ({ word, transcription, translation }) => {
       {isTranslated ? (
         <p className={styles.russianField}>{translation}</p>
       ) : (
-        <button onClick={handleClick} className={styles.translateButton}>
+        <button
+          onClick={handleClick}
+          className={styles.translateButton}
+          ref={buttonRef}
+        >
           Check
         </button>
       )}

@@ -18,3 +18,9 @@
   color: var(--background);
   font-weight: 600;
 }
+
+.wordCounter {
+  font-family: var(--primary-font);
+  color: var(--background);
+  font-weight: 600;
+}

@@ -7,3 +7,8 @@
 .inputField {
   width: 80%;
 }
+
+.inputField_error {
+  width: 80%;
+  border: 2px solid red;
+}

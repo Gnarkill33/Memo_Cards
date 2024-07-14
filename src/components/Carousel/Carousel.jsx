@@ -2,7 +2,7 @@ import {
   IoArrowForwardCircleSharp,
   IoArrowBackCircleSharp,
 } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./Carousel.module.css";
 import Card from "../Card/Card";
 
