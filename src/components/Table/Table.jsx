@@ -1,8 +1,8 @@
 import styles from "./Table.module.css";
 import Row from "../Row/Row";
-import data from "../../data.js";
+// import data from "../../data.js";
 
-const Table = () => {
+const Table = ({ newWords, handleSaveNewWord }) => {
   return (
     <table className={styles.container}>
       <thead className={styles.title}>
@@ -14,8 +14,8 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((word) => (
-          <Row key={word.id} {...word} />
+        {newWords.map((word) => (
+          <Row key={word.id} {...word} handleSaveNewWord={handleSaveNewWord} />
         ))}
       </tbody>
     </table>

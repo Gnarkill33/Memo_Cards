@@ -1,10 +1,10 @@
 import styles from "./Main.module.css";
 import Table from "../Table/Table";
 
-const Main = () => {
+const Main = ({ newWords, handleSaveNewWord }) => {
   return (
     <div className={styles.container}>
-      <Table />
+      <Table handleSaveNewWord={handleSaveNewWord} newWords={newWords} />
     </div>
   );
 };

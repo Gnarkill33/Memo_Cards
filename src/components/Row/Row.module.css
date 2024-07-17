@@ -12,3 +12,9 @@
   width: 80%;
   border: 2px solid red;
 }
+
+.warning {
+  font-size: 10px;
+  font-family: var(--primary-font);
+  color: red;
+}

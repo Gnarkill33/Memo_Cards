@@ -4,7 +4,13 @@ import Button from "../Button/Button";
 import SaveButton from "../SaveButton/SaveButton";
 import CancelButton from "../CancelButton/CancelButton";
 
-const Row = ({ word, transcription, translation, theme }) => {
+const Row = ({
+  word,
+  transcription,
+  translation,
+  theme,
+  handleSaveNewWord,
+}) => {
   const [isEdited, setIsEdited] = useState(false);
   const [inputValues, setInputValues] = useState({
     word: word,
@@ -24,15 +30,27 @@ const Row = ({ word, transcription, translation, theme }) => {
   };
 
   const handleChange = (event) => {
-    setInputValues((prev) => {
-      return { ...prev, [event.target.name]: event.target.value };
+    setInputValues({ ...inputValues, [event.target.name]: event.target.value });
+    setErrors({
+      ...errors,
+      [event.target.name]:
+        event.target.value.trim() === "" ? "Field is empty" : false,
     });
-    setErrors({ ...errors, [event.target.name]: !event.target.value.trim() });
   };
 
   const handleSave = () => {
-    setInputValues({ ...inputValues });
-    setIsEdited(!isEdited);
+    if (inputValues.translation.match(/[a-zA-Z]/g)) {
+      setErrors({ ...errors, translation: "Use Russian letters" });
+    } else if (inputValues.word.match(/[А-Яа-я]/g)) {
+      setErrors({ ...errors, word: "Use English letters" });
+    } else if (inputValues.transcription.match(/[А-Яа-я]/g)) {
+      setErrors({ ...errors, transcription: "Use English letters" });
+    } else if (inputValues.theme.match(/[a-zA-Z]/g)) {
+      setErrors({ ...errors, theme: "Use Russian letters" });
+    } else {
+      handleSaveNewWord(inputValues, word.id);
+      setIsEdited(!isEdited);
+    }
   };
 
   const handleCancel = () => {
@@ -52,6 +70,7 @@ const Row = ({ word, transcription, translation, theme }) => {
           type='text'
           value={inputValues.word}
         />
+        <p className={styles.warning}>{errors.word && errors.word}</p>
       </td>
       <td className={styles.cell}>
         <input
@@ -63,6 +82,9 @@ const Row = ({ word, transcription, translation, theme }) => {
           type='text'
           value={inputValues.transcription}
         />
+        <p className={styles.warning}>
+          {errors.transcription && errors.transcription}
+        </p>
       </td>
       <td className={styles.cell}>
         <input
@@ -74,6 +96,9 @@ const Row = ({ word, transcription, translation, theme }) => {
           type='text'
           value={inputValues.translation}
         />
+        <p className={styles.warning}>
+          {errors.translation && errors.translation}
+        </p>
       </td>
       <td className={styles.cell}>
         <input
@@ -83,6 +108,7 @@ const Row = ({ word, transcription, translation, theme }) => {
           type='text'
           value={inputValues.theme}
         />
+        <p className={styles.warning}>{errors.theme && errors.theme}</p>
       </td>
       <td className={styles.cell}>
         <SaveButton handleSave={handleSave} disabled={isDisabled} />
@@ -91,10 +117,10 @@ const Row = ({ word, transcription, translation, theme }) => {
     </tr>
   ) : (
     <tr className={styles.wrapper}>
-      <td className={styles.cell}>{inputValues.word}</td>
-      <td className={styles.cell}>{inputValues.transcription}</td>
-      <td className={styles.cell}>{inputValues.translation}</td>
-      <td className={styles.cell}>{inputValues.theme}</td>
+      <td className={styles.cell}>{word}</td>
+      <td className={styles.cell}>{transcription}</td>
+      <td className={styles.cell}>{translation}</td>
+      <td className={styles.cell}>{theme}</td>
       <td className={styles.cell}>
         <Button handleEdit={handleEdit} mode='edit' />
         <Button />
