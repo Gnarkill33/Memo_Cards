@@ -117,10 +117,10 @@ const Row = ({
     </tr>
   ) : (
     <tr className={styles.wrapper}>
-      <td className={styles.cell}>{word}</td>
-      <td className={styles.cell}>{transcription}</td>
-      <td className={styles.cell}>{translation}</td>
-      <td className={styles.cell}>{theme}</td>
+      <td className={styles.cell}>{inputValues.word}</td>
+      <td className={styles.cell}>{inputValues.transcription}</td>
+      <td className={styles.cell}>{inputValues.translation}</td>
+      <td className={styles.cell}>{inputValues.theme}</td>
       <td className={styles.cell}>
         <Button handleEdit={handleEdit} mode='edit' />
         <Button />
