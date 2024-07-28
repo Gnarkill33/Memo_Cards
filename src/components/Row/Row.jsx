@@ -1,28 +1,25 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { WordContext } from "../WordContext";
 import styles from "./Row.module.css";
 import Button from "../Button/Button";
 import SaveButton from "../SaveButton/SaveButton";
 import CancelButton from "../CancelButton/CancelButton";
 
-const Row = ({
-  word,
-  transcription,
-  translation,
-  theme,
-  handleSaveNewWord,
-}) => {
+const Row = ({ english, transcription, russian, id }) => {
+  const { handleUpdatedWord, handleDeleteWord } = useContext(WordContext);
+
   const [isEdited, setIsEdited] = useState(false);
+
   const [inputValues, setInputValues] = useState({
-    word: word,
-    transcription: transcription,
-    translation: translation,
-    theme: theme,
+    english,
+    transcription,
+    russian,
   });
+
   const [errors, setErrors] = useState({
-    word: false,
+    english: false,
     transcription: false,
-    translation: false,
-    theme: false,
+    russian: false,
   });
 
   const handleEdit = () => {
@@ -39,23 +36,25 @@ const Row = ({
   };
 
   const handleSave = () => {
-    if (inputValues.translation.match(/[a-zA-Z]/g)) {
-      setErrors({ ...errors, translation: "Use Russian letters" });
-    } else if (inputValues.word.match(/[А-Яа-я]/g)) {
-      setErrors({ ...errors, word: "Use English letters" });
+    if (inputValues.russian.match(/[a-zA-Z]/g)) {
+      setErrors({ ...errors, russian: "Use Russian letters" });
+    } else if (inputValues.english.match(/[А-Яа-я]/g)) {
+      setErrors({ ...errors, english: "Use English letters" });
     } else if (inputValues.transcription.match(/[А-Яа-я]/g)) {
       setErrors({ ...errors, transcription: "Use English letters" });
-    } else if (inputValues.theme.match(/[a-zA-Z]/g)) {
-      setErrors({ ...errors, theme: "Use Russian letters" });
     } else {
-      handleSaveNewWord(inputValues, word.id);
+      handleUpdatedWord(inputValues, id);
       setIsEdited(!isEdited);
     }
   };
 
   const handleCancel = () => {
     setIsEdited(!isEdited);
-    setInputValues({ word, transcription, translation, theme });
+    setInputValues({ english, transcription, russian });
+  };
+
+  const handleDelete = (id) => {
+    handleDeleteWord(id);
   };
 
   const isDisabled = Object.values(errors).some((value) => value);
@@ -64,13 +63,15 @@ const Row = ({
     <tr className={styles.wrapper}>
       <td className={styles.cell}>
         <input
-          name='word'
+          name='english'
           onChange={handleChange}
-          className={errors.word ? styles.inputField_error : styles.inputField}
+          className={
+            errors.english ? styles.inputField_error : styles.inputField
+          }
           type='text'
-          value={inputValues.word}
+          value={inputValues.english}
         />
-        <p className={styles.warning}>{errors.word && errors.word}</p>
+        <p className={styles.warning}>{errors.english && errors.english}</p>
       </td>
       <td className={styles.cell}>
         <input
@@ -88,27 +89,15 @@ const Row = ({
       </td>
       <td className={styles.cell}>
         <input
-          name='translation'
+          name='russian'
           onChange={handleChange}
           className={
-            errors.translation ? styles.inputField_error : styles.inputField
+            errors.russian ? styles.inputField_error : styles.inputField
           }
           type='text'
-          value={inputValues.translation}
+          value={inputValues.russian}
         />
-        <p className={styles.warning}>
-          {errors.translation && errors.translation}
-        </p>
-      </td>
-      <td className={styles.cell}>
-        <input
-          name='theme'
-          onChange={handleChange}
-          className={errors.theme ? styles.inputField_error : styles.inputField}
-          type='text'
-          value={inputValues.theme}
-        />
-        <p className={styles.warning}>{errors.theme && errors.theme}</p>
+        <p className={styles.warning}>{errors.russian && errors.russian}</p>
       </td>
       <td className={styles.cell}>
         <SaveButton handleSave={handleSave} disabled={isDisabled} />
@@ -117,13 +106,12 @@ const Row = ({
     </tr>
   ) : (
     <tr className={styles.wrapper}>
-      <td className={styles.cell}>{inputValues.word}</td>
+      <td className={styles.cell}>{inputValues.english}</td>
       <td className={styles.cell}>{inputValues.transcription}</td>
-      <td className={styles.cell}>{inputValues.translation}</td>
-      <td className={styles.cell}>{inputValues.theme}</td>
+      <td className={styles.cell}>{inputValues.russian}</td>
       <td className={styles.cell}>
         <Button handleEdit={handleEdit} mode='edit' />
-        <Button />
+        <Button handleDelete={handleDelete} id={id} />
       </td>
     </tr>
   );

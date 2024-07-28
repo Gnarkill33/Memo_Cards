@@ -13,11 +13,10 @@
   color: var(--background);
   background-color: var(--white);
   box-shadow: 0 4px 0 0 rgba(255, 255, 255, 0.5);
-}
-
-.button:hover {
-  color: var(--white);
+  &:hover {
+    color: var(--white);
   background-color: var(--background);
   box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.5);
   cursor: pointer;
+}
 }
